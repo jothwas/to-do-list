@@ -1,12 +1,15 @@
 import { useState } from "react";
 
-const ToDoGenerator = ({ setList }) => {
+const ToDoGenerator = ({ setList, currentListId }) => {
   const [newToDo, setNewToDo] = useState("");
   const submit = (event) => {
     event.preventDefault();
     setList((prevList) => {
-      const newList = [...prevList];
-      newList.push({ id: newList.length + 1, task: newToDo, done: false });
+      const newList = prevList.map((toDo) => {
+        return { ...toDo };
+      });
+
+      newList.push({ task: newToDo, done: false, listId: currentListId });
       setNewToDo("");
       return newList;
     });
